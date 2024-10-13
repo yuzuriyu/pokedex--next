@@ -30,7 +30,7 @@ const BaseStat: React.FC<BaseStatProps> = () => {
     return <div>Error: Context is not available.</div>;
   }
 
-  const { selectedPokemon, setSelectedPokemon } = context;
+  const { selectedPokemon } = context;
 
   // Add a check to ensure selectedPokemon is not null
   if (!selectedPokemon) {

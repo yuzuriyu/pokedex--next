@@ -94,9 +94,9 @@ const List = () => {
               setSelectedPokemon(pokemon);
               toggleCard();
             }}
-            className={`flex mb-8 rounded-lg p-2 ${pokemon.types
-              .map((type) => imageBgColors[pokemon.types[0]] || "bg-gray-200")
-              .join(" ")}`}
+            className={`flex mb-8 rounded-lg p-2 ${
+              imageBgColors[pokemon.types[0]] || "bg-gray-200"
+            }`} // Use the first type for the background
           >
             <div className="w-1/2">
               <p className="text-sm">#{pokemon.id}</p>
@@ -108,7 +108,7 @@ const List = () => {
                   <div
                     key={type}
                     className={`${
-                      typeColors[type]
+                      typeColors[type] || "bg-gray-200"
                     } flex py-1 px-3 rounded-full ${index === 0 ? "mr-2" : ""}`} // Add mr-2 to the first type only
                   >
                     <div className="bg-white rounded-full p-1 mr-2 w-6 h-6 flex items-center align-middle">
@@ -120,9 +120,7 @@ const List = () => {
                         className="m-auto"
                       />
                     </div>
-                    <p
-                      className={` text-white text-sm ${index === 0 ? "" : ""}`}
-                    >
+                    <p className={` text-white text-sm`}>
                       {capitalizeFirstLetter(type)}
                     </p>
                   </div>
@@ -139,13 +137,13 @@ const List = () => {
               />
 
               <div />
-              <div className="relative  h-full w-full">
+              <div className="relative h-full w-full">
                 <Image
                   src={`/images/pokeball.png`}
                   alt=""
                   width={125}
                   height={125}
-                  className=" absolute z-10  top-1/2 -translate-y-1/2 right-0 opacity-20"
+                  className="absolute z-10 top-1/2 -translate-y-1/2 right-0 opacity-20"
                 />
               </div>
             </div>

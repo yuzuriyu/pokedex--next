@@ -40,7 +40,7 @@ const Evolution: React.FC<EvolutionProps> = () => {
     <div className="space-y-8">
       {evolutions && evolutions.length > 0 && (
         <div className="flex items-center justify-center space-x-6 my-6 overflow-x-auto">
-          {evolutions.map((pokemon: EvolutionType, index: number) => (
+          {evolutions.map((pokemon: EvolutionType) => (
             <React.Fragment key={pokemon.name}>
               <div className="flex flex-col items-center mx-4">
                 <Image

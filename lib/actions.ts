@@ -1,4 +1,50 @@
-import { PokemonType, EvolutionType } from "@/types/interface";
+import {
+  PokemonType,
+  EvolutionType,
+  PokemonForm,
+  Stat,
+  PokemonSummary,
+} from "@/types/interface";
+
+// Define types for the response from the API
+interface PokemonResponse {
+  id: number;
+  name: string;
+  species: { url: string };
+  moves: Array<{ move: { name: string } }>;
+  types: Array<{ type: { name: string } }>;
+  abilities: Array<{ ability: { name: string } }>;
+  height: number;
+  weight: number;
+  sprites: {
+    other: {
+      "official-artwork": { front_default: string };
+    };
+  };
+  stats: Array<{ base_stat: number; stat: { name: string } }>; // Include stats in the PokemonResponse
+}
+
+interface SpeciesResponse {
+  flavor_text_entries: Array<{
+    flavor_text: string;
+    language: { name: string };
+  }>;
+  evolution_chain: { url: string };
+  varieties: Array<{
+    pokemon: { url: string; name: string };
+    is_default: boolean;
+  }>;
+  names: Array<{ name: string; language: { name: string } }>;
+}
+
+interface Evolution {
+  species: { name: string };
+  evolves_to: Evolution[]; // Recursive definition for evolutions
+}
+
+interface EvolutionChainResponse {
+  chain: Evolution; // Use the Evolution interface
+}
 
 // Fetch a batch of Pokémon names and URLs
 async function fetchPokemonBatch(limit: number, offset: number) {
@@ -14,45 +60,46 @@ export const fetchPokemonDetails = async (
   url: string
 ): Promise<PokemonType> => {
   const response = await fetch(url);
-  const details = await response.json();
+  const details: PokemonResponse = await response.json();
 
   // Fetch species data for description and forms
   const speciesResponse = await fetch(details.species.url);
-  const speciesData = await speciesResponse.json();
+  const speciesData: SpeciesResponse = await speciesResponse.json();
 
   // Extract description
   const description =
     speciesData.flavor_text_entries.find(
-      (entry: any) => entry.language.name === "en"
+      (entry) => entry.language.name === "en"
     )?.flavor_text || "No description available";
 
   // Fetch evolution chain data
   const evolutionChainResponse = await fetch(speciesData.evolution_chain.url);
-  const evolutionChainData = await evolutionChainResponse.json();
+  const evolutionChainData: EvolutionChainResponse =
+    await evolutionChainResponse.json();
 
   // Helper function to extract evolution names and images
-  const getEvolutions = (evolution: any): EvolutionType[] => {
+  const getEvolutions = (evolution: Evolution): EvolutionType[] => {
     const evolutions: EvolutionType[] = [];
-    const traverseEvolutions = (ev: any) => {
+    const traverseEvolutions = (ev: Evolution) => {
       evolutions.push({
         name: ev.species.name,
         image: `https://img.pokemondb.net/sprites/home/normal/${ev.species.name}.png`,
       });
       ev.evolves_to.forEach(traverseEvolutions);
     };
-    traverseEvolutions(evolution.chain);
+    traverseEvolutions(evolution);
     return evolutions;
   };
 
-  const evolutions = getEvolutions(evolutionChainData);
+  const evolutions = getEvolutions(evolutionChainData.chain); // Pass the correct chain property
 
   // Extract moves
-  const moves = details.moves.map((moveInfo: any) => moveInfo.move.name);
+  const moves = details.moves.map((moveInfo) => moveInfo.move.name);
 
   // Fetch forms (varieties)
-  const formsPromises = speciesData.varieties.map(async (variety: any) => {
+  const formsPromises = speciesData.varieties.map(async (variety) => {
     const formResponse = await fetch(variety.pokemon.url);
-    const formDetails = await formResponse.json();
+    const formDetails: PokemonResponse = await formResponse.json();
 
     // Extract relevant form details
     return {
@@ -62,20 +109,21 @@ export const fetchPokemonDetails = async (
       image: formDetails.sprites.other["official-artwork"].front_default, // Get the image for the form
       height: formDetails.height, // Height for the form
       weight: formDetails.weight, // Weight for the form
-      types: formDetails.types.map((typeInfo: any) => typeInfo.type.name), // Get the types for the form
+      types: formDetails.types.map((typeInfo) => typeInfo.type.name), // Get the types for the form
       abilities: formDetails.abilities.map(
-        (abilityInfo: any) => abilityInfo.ability.name
+        (abilityInfo) => abilityInfo.ability.name
       ),
-      stats: formDetails.stats.map((statInfo: any) => ({
+      stats: formDetails.stats.map((statInfo) => ({
         name: statInfo.stat.name,
         value: statInfo.base_stat,
-      })),
-      moves: formDetails.moves.map((moveInfo: any) => moveInfo.move.name), // Extract moves for the form
+      })) as Stat[], // Ensure it matches the Stat interface
+      moves: formDetails.moves.map((moveInfo) => moveInfo.move.name), // Extract moves for the form
       species:
-        speciesData.names.find((name: any) => name.language.name === "en")
-          ?.name || "Unknown", // Extract species name
+        speciesData.names.find((name) => name.language.name === "en")?.name ||
+        "Unknown", // Extract species name
       description, // Add description for the form (optional)
-    };
+      evolutions, // Include evolutions in the form (if relevant)
+    } as PokemonForm; // Ensure it matches the PokemonForm interface
   });
 
   const forms = await Promise.all(formsPromises); // Wait for all form data to be fetched
@@ -87,22 +135,20 @@ export const fetchPokemonDetails = async (
     image: details.sprites.other["official-artwork"].front_default,
     height: details.height,
     weight: details.weight,
-    types: details.types.map((typeInfo: any) => typeInfo.type.name),
-    abilities: details.abilities.map(
-      (abilityInfo: any) => abilityInfo.ability.name
-    ),
-    stats: details.stats.map((statInfo: any) => ({
+    types: details.types.map((typeInfo) => typeInfo.type.name),
+    abilities: details.abilities.map((abilityInfo) => abilityInfo.ability.name),
+    stats: details.stats.map((statInfo) => ({
       name: statInfo.stat.name,
       value: statInfo.base_stat,
-    })),
+    })) as Stat[], // Ensure it matches the Stat interface
     description,
     moves, // Extracted moves for the main Pokémon
     species:
-      speciesData.names.find((name: any) => name.language.name === "en")
-        ?.name || "Unknown",
+      speciesData.names.find((name) => name.language.name === "en")?.name ||
+      "Unknown",
     evolutions, // Include evolutions in the return object
     forms, // Include forms in the return object
-  };
+  } as PokemonType; // Ensure it matches the PokemonType interface
 };
 
 // Fetch a range of Pokémon details for a given start and end ID
@@ -111,7 +157,7 @@ async function fetchGenerationRange(startId: number, endId: number) {
   const offset = startId - 1;
   const pokemonList = await fetchPokemonBatch(limit, offset);
 
-  const promises = pokemonList.map((pokemon: any) =>
+  const promises = pokemonList.map((pokemon: PokemonSummary) =>
     fetchPokemonDetails(pokemon.url)
   );
   return await Promise.all(promises);

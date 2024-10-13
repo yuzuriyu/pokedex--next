@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import About from "./About";
 import BaseStat from "./BaseStat";
 import Evolution from "./Evolution";

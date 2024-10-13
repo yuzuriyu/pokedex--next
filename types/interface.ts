@@ -24,6 +24,15 @@ export interface Stat {
   value: number; // Use `value` for the stat number
 }
 
+export interface Evolution {
+  species: { name: string };
+  evolves_to: Evolution[]; // Recursive definition to support multiple evolutions
+}
+
+export interface EvolutionChainResponse {
+  chain: Evolution; // Represents the main chain of evolutions
+}
+
 export interface PokemonType {
   id: number;
   name: string;
@@ -34,8 +43,13 @@ export interface PokemonType {
   weight: number;
   moves: string[];
   species: string;
-  evolutions: EvolutionType[];
+  evolutions: EvolutionType[]; // Existing evolution type
   abilities: string[];
   forms: PokemonForm[]; // Forms will contain complete data for each form
   stats: Stat[]; // Include an array of stats
+}
+
+export interface PokemonSummary {
+  name: string;
+  url: string;
 }
