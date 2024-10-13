@@ -25,11 +25,20 @@ const Moves: React.FC<MovesProps> = () => {
     return <div className="text-sm">No moves available.</div>;
   }
 
+  // Function to format the move names
+  const formatMoveName = (move: string) => {
+    return move
+      .replace(/-/g, " ") // Replace hyphens with spaces
+      .split(" ") // Split the string into words
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+      .join(" "); // Join the words back together
+  };
+
   return (
-    <div className="h-[400px] overflow-auto grid grid-cols-2">
+    <div className="h-[400px] overflow-auto grid grid-cols-1">
       {moves.map((move, index) => (
         <div key={index} className="p-2">
-          <p>{move}</p>
+          <p className="text-sm">{formatMoveName(move)}</p>
         </div>
       ))}
     </div>

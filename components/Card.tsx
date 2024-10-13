@@ -143,7 +143,7 @@ const Card: React.FC<CardProps> = ({ toggleCard }) => {
                     typeColors[type as keyof typeof typeColors]
                   } flex py-1 px-3 mr-4 rounded-full`}
                 >
-                  <div className="bg-white rounded-full p-1 mr-2 w-4 h-4 flex items-center align-middle">
+                  <div className="bg-white rounded-full p-1 mr-2 w-6 h-6 flex items-center align-middle">
                     <Image
                       src={`/images/${type}.png`}
                       alt={type}
@@ -152,7 +152,7 @@ const Card: React.FC<CardProps> = ({ toggleCard }) => {
                       className="m-auto"
                     />
                   </div>
-                  <p className="text-white text-xs">
+                  <p className="text-white text-sm">
                     {capitalizeFirstLetter(type)}
                   </p>
                 </div>

@@ -50,7 +50,7 @@ const BaseStat: React.FC<BaseStatProps> = () => {
           <span className="w-1/4 font-medium">
             {statLabels[stat.name] || stat.name.toUpperCase()}
           </span>
-          <span className="w-10 text-right font-bold">{stat.value}</span>{" "}
+          <span className="w-10 text-right ">{stat.value}</span>{" "}
           <div className="flex-grow h-[2px] bg-gray-200 rounded">
             <div
               className={`h-full rounded ${getStatColor(stat.value)}`} // Use conditional color class
@@ -59,7 +59,7 @@ const BaseStat: React.FC<BaseStatProps> = () => {
           </div>
         </div>
       ))}
-      <div className="flex items-center space-x-4 mt-4 font-bold">
+      <div className="flex items-center space-x-4 mt-4 ">
         <span className="w-1/4">TOTAL</span>
         <span className="w-10 text-right">{totalStats}</span>
         <div className="flex-grow h-[2px] bg-gray-200 rounded">
