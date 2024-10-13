@@ -47,7 +47,7 @@ const BaseStat: React.FC<BaseStatProps> = () => {
     <div className="space-y-3 my-4 text-sm">
       {selectedPokemon.stats.map((stat) => (
         <div key={stat.name} className="flex items-center space-x-4">
-          <span className="w-1/4 font-medium">
+          <span className="w-1/4 ">
             {statLabels[stat.name] || stat.name.toUpperCase()}
           </span>
           <span className="w-10 text-right ">{stat.value}</span>{" "}
