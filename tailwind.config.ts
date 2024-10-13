@@ -11,9 +11,16 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        bggray: "#F1F2F7",
+        icongray: "#A6ABC8",
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        playfair: ["Playfair Display", "serif"],
       },
     },
   },
   plugins: [],
 };
+
 export default config;
