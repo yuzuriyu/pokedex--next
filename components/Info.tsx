@@ -1,23 +1,14 @@
 "use client";
-import { PokemonType } from "@/types/interface";
 import React, { useContext, useState } from "react";
 import About from "./About";
 import BaseStat from "./BaseStat";
 import Evolution from "./Evolution";
 import Moves from "./Moves";
 import Forms from "./Forms";
-import { PokemonContext } from "@/context/PokemonContext";
 
 interface InfoProps {}
 
 const Info: React.FC<InfoProps> = () => {
-  const context = useContext(PokemonContext);
-
-  if (!context) {
-    throw Error("context undefined");
-  }
-  const { selectedPokemon, setSelectedPokemon } = context;
-
   const [activeCategory, setActiveCategory] = useState("about");
 
   const handleActiveCategory = (category: string) => {

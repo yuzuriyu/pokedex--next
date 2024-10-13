@@ -3,18 +3,23 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Card from "./Card";
-import { PokemonType } from "@/types/interface";
 import Header from "./Header";
 import { PokemonContext } from "@/context/PokemonContext";
 
 const List = () => {
+  const context = useContext(PokemonContext);
+
+  if (!context) {
+    throw Error("context undefined");
+  }
+
   const {
     pokemonList,
     setPokemonList,
     setSelectedPokemon,
     selectedPokemon,
     searchQuery,
-  } = useContext(PokemonContext);
+  } = context;
 
   const reverseList = () => {
     setPokemonList((prevList) => [...prevList].reverse()); // Reverse the list

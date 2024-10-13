@@ -1,4 +1,3 @@
-import { PokemonType } from "@/types/interface";
 import React, { useContext } from "react";
 import { PokemonContext } from "@/context/PokemonContext";
 

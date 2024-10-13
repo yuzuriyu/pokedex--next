@@ -20,10 +20,6 @@ const Forms: React.FC = () => {
 
   const forms: PokemonForm[] = selectedPokemon?.forms || [];
 
-  const capitalizeFirstLetter = (name: string) => {
-    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-  };
-
   const nonDefaultForms = forms.filter((form: PokemonForm) => !form.isDefault);
 
   if (nonDefaultForms.length === 0) {

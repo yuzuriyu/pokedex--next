@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { PokemonType } from "@/types/interface";
 import { PokemonContext } from "@/context/PokemonContext";
 
 interface MovesProps {}
@@ -12,7 +11,7 @@ const Moves: React.FC<MovesProps> = () => {
     return <div>Error: Context is not available.</div>;
   }
 
-  const { selectedPokemon, setSelectedPokemon } = context;
+  const { selectedPokemon } = context;
 
   // Add a check to ensure selectedPokemon is not null
   if (!selectedPokemon) {

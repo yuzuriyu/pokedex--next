@@ -14,7 +14,7 @@ const Evolution: React.FC<EvolutionProps> = () => {
     throw new Error("Context is not available.");
   }
 
-  const { selectedPokemon, setSelectedPokemon } = context;
+  const { selectedPokemon } = context;
 
   // Throw an error if selectedPokemon is not available
   if (!selectedPokemon) {

@@ -74,3 +74,5 @@ const PokemonContextProvider: React.FC<{
 };
 
 export { PokemonContext, PokemonContextProvider };
+
+export default PokemonContextProvider;
