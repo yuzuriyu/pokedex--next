@@ -6,14 +6,12 @@ import { PokemonContext } from "@/context/PokemonContext";
 const Forms: React.FC = () => {
   const context = useContext(PokemonContext);
 
-  // Add a check to make sure context is defined
   if (!context) {
     return <div>Error: Context is not available.</div>;
   }
 
   const { selectedPokemon, setSelectedPokemon } = context;
 
-  // Add a check to ensure selectedPokemon is not null
   if (!selectedPokemon) {
     return <div>Select a Pokémon to see the details.</div>;
   }
@@ -85,18 +83,16 @@ const Forms: React.FC = () => {
           <div
             key={form.name}
             className="flex flex-col items-center cursor-pointer"
-            onClick={() => handleFormSelect(form)} // Call the form selection handler
+            onClick={() => handleFormSelect(form)}
           >
             <Image
-              src={form.image} // Use the image from the form data
+              src={form.image}
               alt={form.name}
               height={100}
               width={100}
               className="mb-2"
             />
-            <span className="text-sm font-medium">
-              {formatPokemonName(form.name)}
-            </span>
+            <span className="text-sm ">{formatPokemonName(form.name)}</span>
           </div>
         ))}
       </div>

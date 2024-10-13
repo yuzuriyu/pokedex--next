@@ -50,7 +50,7 @@ const Evolution: React.FC<EvolutionProps> = () => {
                   width={100}
                   className="mb-2"
                 />
-                <span className="text-sm font-medium">
+                <span className="text-sm ">
                   {capitalizeFirstLetter(pokemon.name)}
                 </span>
               </div>
