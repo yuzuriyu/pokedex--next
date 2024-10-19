@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({ reverseList }) => {
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              className="mr-4 fill-icongray z-20"
+              className="mr-4 fill-icongray z-20 cursor-pointer"
               onClick={toggleGenNav}
             >
               <path d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z"></path>
@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ reverseList }) => {
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              className="fill-icongray z-20"
+              className="fill-icongray z-20 cursor-pointer"
               onClick={reverseList}
             >
               <path d="M6.227 11h11.547c.862 0 1.32-1.02.747-1.665L12.748 2.84a.998.998 0 0 0-1.494 0L5.479 9.335C4.906 9.98 5.364 11 6.227 11zm5.026 10.159a.998.998 0 0 0 1.494 0l5.773-6.495c.574-.644.116-1.664-.747-1.664H6.227c-.862 0-1.32 1.02-.747 1.665l5.773 6.494z"></path>

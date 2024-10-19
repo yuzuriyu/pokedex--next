@@ -94,7 +94,7 @@ const List = () => {
               setSelectedPokemon(pokemon);
               toggleCard();
             }}
-            className={`flex mb-8 rounded-lg p-2 ${
+            className={`flex mb-8 rounded-lg cursor-pointer p-2 ${
               imageBgColors[pokemon.types[0]] || "bg-gray-200"
             }`} // Use the first type for the background
           >

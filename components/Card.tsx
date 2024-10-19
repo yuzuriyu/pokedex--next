@@ -118,7 +118,7 @@ const Card: React.FC<CardProps> = ({ toggleCard }) => {
             width="20"
             height="20"
             viewBox="0 0 20 20"
-            className="absolute top-4 left-4 z-50 fill-white"
+            className="absolute top-4 left-4 z-50 fill-white cursor-pointer"
             onClick={() => {
               setSelectedPokemon(null);
               toggleCard();
